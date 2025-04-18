@@ -1,4 +1,4 @@
-module CyberusGolangShareLibDB
+module CyberusGolangShareLibrary
 
 go 1.22.2
 

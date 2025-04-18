@@ -3,7 +3,6 @@ package redis_db
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -23,11 +22,11 @@ func ConnectRedis() {
 	})
 
 	// Check connection
-	if pong, err := rdb.Ping(ctx).Result(); err != nil {
-		log.Fatalf("Redis connection error: %v", err)
-	} else {
-		fmt.Println("Redis connected:", pong)
-	}
+	// if pong, err := rdb.Ping(ctx).Result(); err != nil {
+	// 	log.Fatalf("Redis connection error: %v", err)
+	// } else {
+	// 	fmt.Println("Redis connected :", pong)
+	// }
 }
 
 // SetWithTTL sets a key with a TTL
@@ -48,6 +47,24 @@ func GetValue(key string) (string, error) {
 		return "", fmt.Errorf("error getting key '%s': %w", key, err)
 	}
 	return val, nil
+}
+
+// GetValue retrieves a value by key
+func DelValue(key string) (int64, error) {
+	// Delete the key
+	deleted, err := rdb.Del(ctx, key).Result()
+	if err != nil {
+		fmt.Println("Error deleting key:", err)
+		return 0, nil
+	}
+
+	if deleted > 0 {
+		fmt.Printf("Key '%s' deleted successfully.\n", key)
+	} else {
+		fmt.Printf("Key '%s' does not exist.\n", key)
+		return 0, nil
+	}
+	return deleted, nil
 }
 
 // func main() {
