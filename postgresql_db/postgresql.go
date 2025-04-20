@@ -9,10 +9,9 @@ import (
 	"gorm.io/gorm"
 )
 
-func PostgreSqlInstance(connStr string) (*gorm.DB, *sql.DB, error) {
-	dsn := connStr
+func PostgreSqlInstance(connectionStr string) (*gorm.DB, *sql.DB, error) {
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(connectionStr), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("failed to connect: %v", err)
 	}
