@@ -19,23 +19,23 @@ func PostgreSqlInstance() (*gorm.DB, *sql.DB, error) {
 	}
 
 	// Get generic database object sql.DB to configure pool
-	PostgreSqlDB, err := db.DB()
+	sqlConfig, err := db.DB()
 	if err != nil {
 		log.Fatalf("failed to get sql.DB: %v", err)
 	}
 
 	// ✅ Configure connection pool
-	PostgreSqlDB.SetMaxOpenConns(100)                 // max open connections
-	PostgreSqlDB.SetMaxIdleConns(5)                   // max idle connections
-	PostgreSqlDB.SetConnMaxLifetime(30 * time.Second) // max lifetime of a connection
+	sqlConfig.SetMaxOpenConns(100)                 // max open connections
+	sqlConfig.SetMaxIdleConns(5)                   // max idle connections
+	sqlConfig.SetConnMaxLifetime(30 * time.Second) // max lifetime of a connection
 
 	// Test connection
-	err = PostgreSqlDB.Ping()
+	err = sqlConfig.Ping()
 	if err != nil {
 		log.Fatalf("ping failed: %v", err)
 	}
 
 	fmt.Println("✅ Connected to PostgreSQL with connection pool")
 
-	return db, PostgreSqlDB, err
+	return db, sqlConfig, err
 }
