@@ -66,25 +66,3 @@ func DelValue(key string) (int64, error) {
 	}
 	return deleted, nil
 }
-
-// func main() {
-// 	initRedis()
-
-// 	key := "mykey"
-// 	value := "This is a value with TTL"
-// 	ttl := 10 * time.Second // expires in 10 seconds
-
-// 	// Set key with TTL
-// 	if err := SetWithTTL(key, value, ttl); err != nil {
-// 		log.Fatalf("SetWithTTL error: %v", err)
-// 	}
-// 	fmt.Println("Key set successfully with TTL")
-
-// 	// Get the key
-// 	val, err := GetValue(key)
-// 	if err != nil {
-// 		log.Printf("GetValue error: %v", err)
-// 	} else {
-// 		fmt.Printf("Retrieved value: %s\n", val)
-// 	}
-// }
