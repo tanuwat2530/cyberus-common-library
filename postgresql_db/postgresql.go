@@ -9,8 +9,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func PostgreSqlInstance() (*gorm.DB, *sql.DB, error) {
-	dsn := "host=localhost user=root password=11111111 dbname=cyberus_db port=5432 sslmode=disable TimeZone=Asia/Bangkok search_path=root@cyberus"
+func PostgreSqlInstance(connStr string) (*gorm.DB, *sql.DB, error) {
+	dsn := connStr
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
