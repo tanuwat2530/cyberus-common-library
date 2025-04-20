@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func PostgreSQL() *sql.DB {
+func DB() *sql.DB {
 	dsn := "host=localhost user=root password=11111111 dbname=cyberus_db port=5432 sslmode=disable TimeZone=Asia/Bangkok"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
