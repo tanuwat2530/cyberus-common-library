@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func DB() *sql.DB {
+func PostgreSqlInstance() (*gorm.DB, *sql.DB, error) {
 	dsn := "host=localhost user=root password=11111111 dbname=cyberus_db port=5432 sslmode=disable TimeZone=Asia/Bangkok"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -37,5 +37,5 @@ func DB() *sql.DB {
 
 	fmt.Println("✅ Connected to PostgreSQL with connection pool")
 
-	return PostgreSqlDB
+	return db, PostgreSqlDB, err
 }
