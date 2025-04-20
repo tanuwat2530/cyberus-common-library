@@ -2,7 +2,6 @@ package postgresql_db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"time"
 
@@ -28,14 +27,6 @@ func PostgreSqlInstance() (*gorm.DB, *sql.DB, error) {
 	sqlConfig.SetMaxOpenConns(100)                 // max open connections
 	sqlConfig.SetMaxIdleConns(5)                   // max idle connections
 	sqlConfig.SetConnMaxLifetime(30 * time.Second) // max lifetime of a connection
-
-	// Test connection
-	err = sqlConfig.Ping()
-	if err != nil {
-		log.Fatalf("ping failed: %v", err)
-	}
-
-	fmt.Println("✅ Connected to PostgreSQL with connection pool")
 
 	return db, sqlConfig, err
 }
