@@ -14,11 +14,12 @@ var (
 )
 
 // Initialize Redis client
-func ConnectRedis() {
+func ConnectRedis(RedisURL string, RedisPass string, RedisDB int) {
 	rdb = redis.NewClient(&redis.Options{
-		Addr:     "127.0.0.1:6379", // Redis address
-		Password: "",               // Password if any
-		DB:       0,                // Default DB
+		Addr:     RedisURL,  // Redis address
+		Password: RedisPass, // Password if any
+		DB:       RedisDB,   // Default DB
+		PoolSize: 100,
 	})
 
 	// Check connection
