@@ -39,6 +39,25 @@ func SetWithTTL(key string, value string, ttl time.Duration) error {
 	return nil
 }
 
+func ScanKey(keyPattern string, keyLimit int64) (redisKeys []string) {
+	var cursor uint64
+	var keys []string
+	var err error
+	for {
+		var scannedKeys []string
+		scannedKeys, cursor, err = rdb.Scan(ctx, cursor, keyPattern, keyLimit).Result()
+		if err != nil {
+			panic(err)
+		}
+		keys = append(keys, scannedKeys...)
+
+		if cursor == 0 {
+			break
+		}
+	}
+	return keys
+}
+
 // GetValue retrieves a value by key
 func GetValue(key string) (string, error) {
 	val, err := rdb.Get(ctx, key).Result()
